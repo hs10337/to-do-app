@@ -14,24 +14,24 @@ function onReady(){
       title: newToDoText.value,
       complete: false
     });
+
+    renderTheUI();
   }
 
-  function renderTheUI(){
+  function renderTheUI() {
     const toDoList = document.getElementById('toDoList');
     // Is const function-scope? Do we have to call const in every function?
 
     toDoList.textContent = '';
 
     toDos.forEach(function(toDo) {
-      //can this also be written as toDos.forEach(toDoItem => ){}
+    //can this also be written as toDos.forEach(toDoItem => ){}
       const newLi = document.createElement('li');
-
       const checkbox = document.createElement('input');
       checkbox.type = "checkbox";
       // why do we use double-quotation here instead of single?
 
-      const title = document.createElement('span');
-      title.textContent = toDo.title;
+      newLi.textContent = toDo.title;
 
       toDoList.appendChild(newLi);
       newLi.appendChild(checkbox);
@@ -43,11 +43,7 @@ function onReady(){
     createNewToDo();
     newToDoText.value = '';
   });
-
-  renderTheUI();
 }
-
-
 
 
 
