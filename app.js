@@ -1,54 +1,56 @@
 
 function onReady(){
+  let toDos = [];
+  // doesn't toDos have to be an empty object?
+
   const addToDoForm = document.getElementById('addToDoForm');
-    const newToDoText = document.getElementById('newToDoText');
+  const newToDoText = document.getElementById('newToDoText');
+  const toDoList = document.getElementById('toDoList');
+
+  function createNewToDo() {
+    if (!newToDoText.value) { return; }
+
+    toDos.push({
+      title: newToDoText.value,
+      complete: false
+    });
+  }
+
+  function renderTheUI(){
     const toDoList = document.getElementById('toDoList');
+    // Is const function-scope? Do we have to call const in every function?
 
-    addToDoForm.addEventListener('submit', () => {
+    toDoList.textContent = '';
+
+    toDos.forEach(function(toDo) {
+      //can this also be written as toDos.forEach(toDoItem => ){}
+      const newLi = document.createElement('li');
+
+      const checkbox = document.createElement('input');
+      checkbox.type = "checkbox";
+      // why do we use double-quotation here instead of single?
+
+      const title = document.createElement('span');
+      title.textContent = toDo.title;
+
+      toDoList.appendChild(newLi);
+      newLi.appendChild(checkbox);
+    });
+  }
+
+  addToDoForm.addEventListener('submit', event => {
     event.preventDefault();
-    // get the text
-    let title = newToDoText.value;
+    createNewToDo();
+    newToDoText.value = '';
+  });
 
-    // create a new li
-    let newLi = document.createElement('li');
+  renderTheUI();
+}
 
-    // create a new input
-    let checkbox = document.createElement('input');
 
-    // set the input's type to checkbox
-    checkbox.type = "checkbox";
 
-    // set the title
-   newLi.textContent = title;
 
-   // attach the checkbox to the li
-   newLi.appendChild(checkbox);
-
-   // attach the li to the ul
-   toDoList.appendChild(newLi);
-
-   //empty the input
-     newToDoText.value = '';
-
-  // create button
-  let deleteButton = document.createElement('button');
-
-  // create text
-  let deleteButtonText = document.createTextNode("delete");
-
-  // append text to button
-  deleteButton.appendChild(deleteButtonText);
-
-  // append button to list
-  newLi.appendChild(deleteButton);
-  })
-};
 
 window.onload = function() {
   onReady();
 };
-
-
-document.getElementsByTagName("button").addEventListener("click", () => {
-    document.getElementsByTagName("li").innerHTML = "";
-  });
