@@ -1,7 +1,6 @@
 
 function onReady(){
   let toDos = [];
-  // doesn't toDos have to be an empty object?
 
   const addToDoForm = document.getElementById('addToDoForm');
   const newToDoText = document.getElementById('newToDoText');
@@ -20,23 +19,36 @@ function onReady(){
 
   function renderTheUI() {
     const toDoList = document.getElementById('toDoList');
-    // Is const function-scope? Do we have to call const in every function?
 
     toDoList.textContent = '';
 
     toDos.forEach(function(toDo) {
-    //can this also be written as toDos.forEach(toDoItem => ){}
       const newLi = document.createElement('li');
       const checkbox = document.createElement('input');
-      checkbox.type = "checkbox";
-      // why do we use double-quotation here instead of single?
+      checkbox.type = 'checkbox';
+      const deleteButton = document.createElement('button')
+      deleteButton.textContent = 'delete'
 
       newLi.textContent = toDo.title;
 
       toDoList.appendChild(newLi);
       newLi.appendChild(checkbox);
+      newLi.appendChild(deleteButton)
     });
   }
+}
+
+var deleteTask = function(){
+  console.log("Delete task...");
+  //remove parent list item from the ul
+  var listItem = this.parentNode;
+  var ul = listItem.parentNode;
+  ul.removeChild(listItem);
+}
+
+button.addEventListener('click', event => {
+  deleteTask();
+});
 
   addToDoForm.addEventListener('submit', event => {
     event.preventDefault();
