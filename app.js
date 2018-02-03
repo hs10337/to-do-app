@@ -37,8 +37,7 @@ function onReady(){
       newLi.appendChild(deleteButton)
 
       deleteButton.addEventListener('click', event => {
-        deleteToDo(toDo.id);
-        renderTheUI();
+        deleteButton.parentNode.remove();
       });
     });
   };
